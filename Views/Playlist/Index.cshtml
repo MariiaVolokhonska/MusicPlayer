@@ -1,6 +1,39 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<MusicPlayer.Models.Playlist>
 @{
 }
+@**
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    PlaylistName
+                </th>
+                <th>
+                    PlaylistID
+                </th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        @item.PlaylistName
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="Home" asp-action="Index" asp-route-id="@item.PlaylistID">PlaylistId</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        **@
 <h1>Playlist</h1>

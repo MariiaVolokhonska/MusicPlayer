@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MusicPlayer.Models.ViewModels.UserViewModel
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/mycss.css" />
+
+
+
+
+<form action="Index" method="post" >
+    <div class="form_container">
+        <label id="sign_up">Sign up</label>
+        <div class="registr_container">
+            @*<label class="label_user_form" asp-for="Login">Login</label>*@
+            <input asp-for="Login" type="text" placeholder="Login" name="login" id="login" required />
+        </div>
+        <div class="registr_container">
+            @* <label class="label_user_form" asp-for="Email">Email</label>*@
+            <input asp-for="Email" type="text" placeholder="Email" name="email" id="email" />
+        </div>
+        <div class="registr_container">
+            @*  <label class="label_user_form" asp-for="PhoneNumber">PhoneNumber</label>*@
+            <input asp-for="PhoneNumber" type="text" placeholder="PhoneNumber" name="number" id="number" />
+        </div>
+        <div class="registr_container">
+            @*  <label class="label_user_form" asp-for="Password">Password</label>*@
+            <input asp-for="Password" type="text" placeholder="Password" name="password" id="password" required />
+        </div>
+
+
+
+
+        <button id="but" asp-action="Index" asp-controller="Registration">Sign up</button>
+    </div>
+    
+
+</form>
+    <div class="form" style="border-width:2px">
+
+
+   
+    </div>
+    
+    
+

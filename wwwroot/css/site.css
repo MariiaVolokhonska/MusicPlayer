@@ -12,10 +12,26 @@ a {
   color: #0366d6;
 }
 
+.registr_container{
+    display: flex;
+    flex-direction:column;
+    
+    
+}
+div.blok{
+    padding: 500px 500px;
+    border-color:blue;
+    border-width: 5px;
+}
+.form {
+    /*padding-block:200px 200px;
+    background-color:red;*/
+}
+
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -61,6 +77,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color:darkgrey;
 }
 .footer {
   position: absolute;

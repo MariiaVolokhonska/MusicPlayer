@@ -17,12 +17,9 @@ namespace MusicPlayer.Models
         [Required]
         [StringLength(20, MinimumLength =8)]
         public string Password { get; set; }
-        [Required]
         [EmailAddress(ErrorMessage ="Wrong email address.")]
-        public string? Email { get; set; }
-        [Required]
-        [RegularExpression(@"\d{9}",ErrorMessage ="Wrong number format.It should be like 000000000.")]
-        public string? PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public List<Playlist> Playlists { get; set; }
 
 
