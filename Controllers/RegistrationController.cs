@@ -39,7 +39,7 @@ namespace MusicPlayer.Controllers
             };
             _context.Users.Add(user);
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("Home","Index");
         }
         /*
 

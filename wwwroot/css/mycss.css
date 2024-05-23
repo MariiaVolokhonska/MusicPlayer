@@ -11,22 +11,21 @@
     margin-top:100px;
     padding: 20px 20px;
     border: solid black 0.5px;
+
     border-radius:7px;
     background-color:whitesmoke;
     opacity:0.9;
     box-shadow:10px 10px ;
 }
 input {
-    margin-bottom: 20px;
+    
     border-top: hidden;
     border-left: hidden;
     border-right: hidden;
     background-color: none;
     border-radius:5px;
 }
-.label_user_form {
-    
-}
+
 #sign_up {
     font-size: 20px;
     margin-left: auto;
@@ -34,21 +33,29 @@ input {
     margin-bottom: 10px;
     color: black;
     font-size: 18px;
-    font-family: Algerian;
+    font-family: Arial;
     opacity: 1;
     font-weight: bold;
 }
 .registr_container {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
-#but {
+.but {
     width: 150px;
-    font-size: 16px;
-    font-family: Calibri;
+    font-size: 15px;
+    font-family:Arial;
     margin-left: auto;
     margin-right: auto;
     border-color:mediumseagreen;
     border-radius:5px;
     font-weight: bold;
+}
+#login_password_incorrect {
+    font-size: 8px;
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:8px;
 }

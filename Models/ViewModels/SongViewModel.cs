@@ -7,5 +7,13 @@ namespace MusicPlayer.Models.ViewModels
 {
     public class SongViewModel
     {
+        
+        public int SongID { get; set; }
+        public string Title { get; set; }
+        public String Artist { get; set; }
+        public Genre Genre { get; set; }
+        public String Album { get; set; }
+        public float Duration { get; set; }
+        public string Location { get; set; }
     }
 }

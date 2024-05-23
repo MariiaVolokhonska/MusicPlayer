@@ -18,7 +18,10 @@
     <Folder Include="Views\Album\" />
     <Folder Include="Views\Artist\" />
     <Folder Include="Views\User\" />
-    <Folder Include="Views\Song\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\SongsArchive\song1.mp3" />
   </ItemGroup>
 
 </Project>

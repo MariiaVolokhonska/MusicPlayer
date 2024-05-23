@@ -10,6 +10,7 @@ namespace MusicPlayer.Models
     public class Song
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SongID { get; set; }
         [Required]
         public string Title { get; set; }
