@@ -1,5 +1,5 @@
 ﻿body {
-    background-image: linear-gradient(orange, yellow);
+    background-color:rebeccapurple;
 }
 .form_container {
     display: flex;
@@ -48,7 +48,7 @@ input {
     font-family:Arial;
     margin-left: auto;
     margin-right: auto;
-    border-color:mediumseagreen;
+    border-color:black;
     border-radius:5px;
     font-weight: bold;
 }

@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<MusicPlayer.Models.ViewModels.FavouritesViewModel>
+<link rel="stylesheet" href="~/css/boot.css" />
+
+
+
+
+<body>
+
+    <table class="table table-hover" style="margin-top:20px">
+        <tr class="table-active">
+            <th scope="row">
+
+            </th>
+            <th scope="row">
+                Title
+            </th>
+            <th scope="row">
+            Artist
+        </th>
+            <th scope="row">
+                Genre
+            </th>
+            <th scope="row">
+            Album
+        </th>
+            <th scope="row">
+                Duration
+            </th>
+            <th scope="row">
+
+            </th>
+        </tr>
+        @foreach (var favSong in Model)
+        {
+    <tr class="table-active">
+        <td>
+
+
+
+            <audio class="aud" src="@Url.Content(favSong.Location)" controls style="width:100px" />
+
+        </td>
+        <td> @favSong.Title</td>
+        <td>@favSong.Artist</td> 
+        <td>@favSong.Genre</td>
+        <td>@favSong.Album</td>
+        <td>@favSong.Duration</td>
+        <td>
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rozwiń</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="Home" asp-action="Index">Usunąć z ułubionych</a>
+                    <a class="dropdown-item" asp-controller="Home" asp-action="Index">Szczególy</a>
+
+
+                </div>
+
+
+        </td>
+    </tr>
+        }
+
+
+        </table>
+
+
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+        </body>

@@ -62,6 +62,32 @@ namespace MusicPlayer.Controllers
             return View();
             
         }
+        [HttpGet]
+        public IActionResult AddToFavourites(int songId)
+        {
+           
+            var selectedSong = _context.Songs.FirstOrDefault(x => songId == x.SongID);
+            var favouriteSong = new Favourite()
+            {
+                SongID = selectedSong.SongID,
+                Song = selectedSong,
+            };
+            Console.WriteLine($" {favouriteSong.FavouriteSongID} {favouriteSong.SongID} {favouriteSong.Song}");
+            var listOfFavourites = _context.Favourites.ToList<Favourite>();
+            if (!listOfFavourites.Contains(favouriteSong))
+            {
+                _context.Favourites.Add(favouriteSong);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Favourits");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Songs");
+            }
+
+            
+            
+        }
         
         
        

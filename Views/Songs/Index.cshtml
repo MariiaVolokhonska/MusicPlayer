@@ -4,64 +4,81 @@
 @{
 }
 @model List<MusicPlayer.Models.ViewModels.SongViewModel>
-    <link rel="stylesheet" href="~/css/boot.css" />
-
-
-  
-                <body>
-
-                    <table class="table table-hover" style="margin-top:20px">
-                        <tr class="table-active">
-                            <th scope="row">
-
-                            </th>
-                            <th scope="row">
-                                Title
-                            </th>
-                            <th scope="row">
-                                Artist
-                            </th>
-                            <th scope="row">
-                                Genre
-                            </th>
-                            <th scope="row">
-                                Album
-                            </th>
-                            <th scope="row">
-                                Duration
-                            </th>
-                        </tr>
-                        @foreach (var song in Model)
-                        {
-                            <tr class="table-active">
-                                <td>
-                                    @* <audio id=@song.SongID src="@Url.Content(song.Location)"/>
-                                    <button onclick="document.getElementById(@song.SongID).play()">Play</button>
-                                    *@
+<link rel="stylesheet" href="~/css/boot.css" />
 
 
 
-                                    <audio class="aud" src="@Url.Content(song.Location)" controls style="width:100px"/>
-                                    @* <button onclick="playMusic(song.Location)" />*@
-                                </td>
-                                <td> @song.Title</td>
-                                <td>@song.Artist</td>
-                                <td>@song.Genre</td>
-                                <td>@song.Album</td>
-                                <td>@song.Duration</td>
-                            </tr>
-                        }
+
+<body>
+
+    <table class="table table-hover" style="margin-top:20px">
+        <tr class="table-active">
+            <th scope="row">
+
+            </th>
+            <th scope="row">
+                Title
+            </th>
+            <th scope="row">
+                Artist
+            </th>
+            <th scope="row">
+                Genre
+            </th>
+            <th scope="row">
+                Album
+            </th>
+            <th scope="row">
+                Duration
+            </th>
+            <th scope="row">
+
+            </th>
+        </tr>
+        @foreach (var song in Model)
+        {
+            <tr class="table-active">
+                <td>
+                    @* <audio id=@song.SongID src="@Url.Content(song.Location)"/>
+                        <button onclick="document.getElementById(@song.SongID).play()">Play</button>
+                    *@
 
 
-                    </table>
-                    @*
 
-                    <audio src="@Url.Content("~/SongsArchive/song1.mp3")" controls  />
-                    <audio src="@Url.Content("~/SongsArchive/song2.mp3")" controls  />
-                    <audio src="@Url.Content("~/SongsArchive/song3.mp3")" controls  />*@
+                    <audio class="aud" src="@Url.Content(song.Location)" controls style="width:100px" />
+                    @* <button onclick="playMusic(song.Location)" />*@
+                </td>
+                <td> @song.Title</td>
+                <td>@song.Artist</td>
+                <td>@song.Genre</td>
+                <td>@song.Album</td>
+                <td>@song.Duration</td>
+                <td>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rozwiń</a>
+                        <div class="dropdown-menu">
+                            <p class="dropdown-item" >@Html.ActionLink("Dodaj do ułubionych", "AddToFavourites", "Songs", new {songID=song.SongID}, null)</p>
+                            <a class="dropdown-item"  asp-controller="Songs" asp-action="AddToFavourites">Dodaj do ułubionych</a>
+                            <a class="dropdown-item"  asp-controller="Home" asp-action="Index">Szczególy</a>
+                            
+                            
+                    </div>
 
-                    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    @*
+
+        <audio src="@Url.Content("~/SongsArchive/song1.mp3")" controls  />
+        <audio src="@Url.Content("~/SongsArchive/song2.mp3")" controls  />
+        <audio src="@Url.Content("~/SongsArchive/song3.mp3")" controls  />*@
+   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
-                </body>
+</body>
