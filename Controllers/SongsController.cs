@@ -72,9 +72,10 @@ namespace MusicPlayer.Controllers
                 SongID = selectedSong.SongID,
                 Song = selectedSong,
             };
-            Console.WriteLine($" {favouriteSong.FavouriteSongID} {favouriteSong.SongID} {favouriteSong.Song}");
+            
             var listOfFavourites = _context.Favourites.ToList<Favourite>();
-            if (!listOfFavourites.Contains(favouriteSong))
+            var songInList = listOfFavourites.FirstOrDefault(x => x.SongID == favouriteSong.SongID);
+            if (songInList is null)
             {
                 _context.Favourites.Add(favouriteSong);
                 _context.SaveChanges();

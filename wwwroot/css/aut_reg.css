@@ -1,5 +1,5 @@
-﻿body {
-    background-color:rebeccapurple;
+﻿body{
+    background: linear-gradient(purple,pink);
 }
 .form_container {
     display: flex;
@@ -8,22 +8,21 @@
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top:100px;
+    margin-top: 100px;
     padding: 20px 20px;
     border: solid black 0.5px;
-
-    border-radius:7px;
-    background-color:whitesmoke;
-    opacity:0.9;
-    box-shadow:10px 10px ;
+    border-radius: 7px;
+    background-color: whitesmoke;
+    opacity: 0.9;
+    box-shadow: 10px 10px;
 }
+
 input {
-    
     border-top: hidden;
     border-left: hidden;
     border-right: hidden;
     background-color: none;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
 #sign_up {
@@ -37,25 +36,35 @@ input {
     opacity: 1;
     font-weight: bold;
 }
+
 .registr_container {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
 }
+
 .but {
     width: 150px;
     font-size: 15px;
-    font-family:Arial;
+    font-family: Arial;
     margin-left: auto;
     margin-right: auto;
-    border-color:black;
-    border-radius:5px;
+    border-color:mediumpurple;
+    background-color:whitesmoke;
+    border-radius: 5px;
     font-weight: bold;
+    color:black;
 }
+.but:hover {
+    color: whitesmoke;
+    background-color: mediumpurple;
+    
+}
+
 #login_password_incorrect {
     font-size: 8px;
     color: red;
     margin-left: auto;
     margin-right: auto;
-    margin-top:8px;
+    margin-top: 8px;
 }

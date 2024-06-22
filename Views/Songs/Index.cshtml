@@ -40,12 +40,21 @@
             <tr class="table-active">
                 <td>
                     @* <audio id=@song.SongID src="@Url.Content(song.Location)"/>
-                        <button onclick="document.getElementById(@song.SongID).play()">Play</button>
+        <button onclick="document.getElementById(@song.SongID).play()">Play</button>
                     *@
+                    <audio id="@song.SongID" >
+                        <source src="@Url.Content(song.Location)" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div>
+                        <button onclick="document.getElementById('@song.SongID').play()">►</button>
+                        <button onclick="document.getElementById('@song.SongID').pause()">❚❚</button>
+                        
+                    </div>
 
 
 
-                    <audio class="aud" src="@Url.Content(song.Location)" controls style="width:100px" />
+                    @*<audio class="aud" src="@Url.Content(song.Location)" controls style="width:100px" />*@
                     @* <button onclick="playMusic(song.Location)" />*@
                 </td>
                 <td> @song.Title</td>
@@ -57,12 +66,13 @@
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rozwiń</a>
                         <div class="dropdown-menu">
-                            <p class="dropdown-item" >@Html.ActionLink("Dodaj do ułubionych", "AddToFavourites", "Songs", new {songID=song.SongID}, null)</p>
-                            <a class="dropdown-item"  asp-controller="Songs" asp-action="AddToFavourites">Dodaj do ułubionych</a>
-                            <a class="dropdown-item"  asp-controller="Home" asp-action="Index">Szczególy</a>
-                            
-                            
-                    </div>
+                            <p class="dropdown-item">@Html.ActionLink("Dodaj do ułubionych", "AddToFavourites", "Songs", new { songID = song.SongID }, null)</p>
+                            <p class="dropdown-item">@Html.ActionLink("Szczególy", "AddToFavourites", "Songs", new { songID = song.SongID }, null)</p>
+
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Szczególy</a>
+
+
+                        </div>
 
 
                 </td>

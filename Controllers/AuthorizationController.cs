@@ -29,10 +29,12 @@ namespace MusicPlayer.Controllers
          [HttpPost]
          public IActionResult Index(UserViewModel userData)
         {
+           
             User user = _context.Users.FirstOrDefault(x => x.Login == userData.Login);
-            if (user != null&&user.Password==userData.Password)
+           
+            if (user != null&& user.Password == userData.Password)
             {
-                return RedirectToAction("Index","Songs");
+                return RedirectToAction("Index","ProfilePage", new ProfileViewModel{  userInSystemId = user.UserID,  Login = user.Login, FavouriteSongs=null});
             }
             return RedirectToAction("PasswordOrLoginIsIncorrect");
                 
