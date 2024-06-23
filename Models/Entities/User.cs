@@ -21,6 +21,7 @@ namespace MusicPlayer.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public List<Playlist> Playlists { get; set; }
+        public List<Favourite> Favourites { get; set; }
 
 
     }

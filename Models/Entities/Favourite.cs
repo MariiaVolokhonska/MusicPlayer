@@ -17,5 +17,9 @@ namespace MusicPlayer.Models
         [ForeignKey("Song")]
         public int SongID { get; set; }
         public Song Song { get; set; }
+        [Required]
+        [ForeignKey("User")]
+        public int UserID { get; set; }
+        public User User { get; set; }
     }
 }

@@ -14,5 +14,8 @@ namespace MusicPlayer.Models.ViewModels
         public String Album { get; set; }
         public float Duration { get; set; }
         public string Location { get; set; }
+        public int userId { get; set; }
+        public User User { get; set; }
+        public int favouriteSongId { get; set; }
     }
 }

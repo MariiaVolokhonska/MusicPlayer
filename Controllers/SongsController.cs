@@ -11,6 +11,7 @@ using MusicPlayer.Models.Data;
 using MusicPlayer.Models.ViewModels;
 using MusicPlayer.Models;
 using Microsoft.Data.SqlClient;
+using MusicPlayer.Migrations;
 
 namespace MusicPlayer.Controllers
 {
@@ -22,7 +23,7 @@ namespace MusicPlayer.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(ProfileViewModel profile)
         {
             
             var songs = _context.Songs.ToList();
@@ -35,7 +36,7 @@ namespace MusicPlayer.Controllers
                 song = _context.Songs.FirstOrDefault(x => x.SongID == id);
                 id++;
             }*/
-            
+
             
             List<SongViewModel> s_vm = new List<SongViewModel>();
             if (songs != null)
@@ -57,7 +58,8 @@ namespace MusicPlayer.Controllers
                     };
                     s_vm.Add(songViewModel);
                 }
-                return View(s_vm);
+                SongsUserViewModel model = new SongsUserViewModel() {Songs=s_vm, User = profile };
+                return View(model);
             }
             return View();
             
@@ -67,13 +69,17 @@ namespace MusicPlayer.Controllers
         {
            
             var selectedSong = _context.Songs.FirstOrDefault(x => songId == x.SongID);
+            var selectedUser = _context.Users.FirstOrDefault(x => Globals.USER_ID== x.UserID);
+            
             var favouriteSong = new Favourite()
             {
                 SongID = selectedSong.SongID,
                 Song = selectedSong,
+                UserID = selectedUser.UserID,
+                
             };
             
-            var listOfFavourites = _context.Favourites.ToList<Favourite>();
+            var listOfFavourites = _context.Favourites.Where(x=>x.UserID==Globals.USER_ID).ToList<Favourite>();
             var songInList = listOfFavourites.FirstOrDefault(x => x.SongID == favouriteSong.SongID);
             if (songInList is null)
             {

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MusicPlayer.Migrations;
 using MusicPlayer.Models;
+
 using MusicPlayer.Models.Data;
 using MusicPlayer.Models.Interfaces;
 using MusicPlayer.Models.ViewModels;
@@ -23,6 +25,7 @@ namespace MusicPlayer.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            Globals.USER_ID = -1;
             return View();
         }
 
@@ -34,7 +37,8 @@ namespace MusicPlayer.Controllers
            
             if (user != null&& user.Password == userData.Password)
             {
-                return RedirectToAction("Index","ProfilePage", new ProfileViewModel{  userInSystemId = user.UserID,  Login = user.Login, FavouriteSongs=null});
+                Globals.USER_ID = user.UserID;
+                return RedirectToAction("Index","Favourits", new ProfileViewModel{  userInSystemId = user.UserID,  Login = user.Login, FavouriteSongs=null});
             }
             return RedirectToAction("PasswordOrLoginIsIncorrect");
                 

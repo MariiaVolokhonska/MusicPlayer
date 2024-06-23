@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MusicPlayer.Models;
+using MusicPlayer.Migrations;
 
 namespace MusicPlayer.Controllers
 {
@@ -32,6 +33,12 @@ namespace MusicPlayer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            Globals.USER_ID = -1;
+           return RedirectToAction("Index");
         }
     }
 }

@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model List<MusicPlayer.Models.ViewModels.SongViewModel>
+@model MusicPlayer.Models.ViewModels.SongsUserViewModel
 <link rel="stylesheet" href="~/css/boot.css" />
 
 
@@ -35,7 +35,7 @@
 
             </th>
         </tr>
-        @foreach (var song in Model)
+        @foreach (var song in Model.Songs)
         {
             <tr class="table-active">
                 <td>
@@ -66,10 +66,10 @@
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Rozwiń</a>
                         <div class="dropdown-menu">
-                            <p class="dropdown-item">@Html.ActionLink("Dodaj do ułubionych", "AddToFavourites", "Songs", new { songID = song.SongID }, null)</p>
-                            <p class="dropdown-item">@Html.ActionLink("Szczególy", "AddToFavourites", "Songs", new { songID = song.SongID }, null)</p>
+                            <p class="dropdown-item">@Html.ActionLink("Add to favourites", "AddToFavourites", "Songs", new { songID = song.SongID}, null)</p>
+                            <p class="dropdown-item">@Html.ActionLink("Song Details", "AddToFavourites", "Songs", new { songID = song.SongID }, null)</p>
 
-                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Szczególy</a>
+                            
 
 
                         </div>
