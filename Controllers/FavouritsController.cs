@@ -61,9 +61,9 @@ namespace MusicPlayer.Controllers
             public IActionResult DeleteFromFavourites(int songId)
             {
                 var selectedSong = _context.Favourites.FirstOrDefault(x => songId == x.SongID && x.UserID==Globals.USER_ID);
-                Console.WriteLine(selectedSong.SongID);
-                // _context.Favourites.Remove(selectedSong);
-                // _context.SaveChanges();
+                
+                _context.Favourites.Remove(selectedSong);
+                _context.SaveChanges();
 
                 /* ProfileViewModel profile = new ProfileViewModel() { userInSystemId = userInSystemId, Login = Login, FavouriteSongs = FavouriteSongs };
                  var favSongs = _context.Favourites.ToList();
@@ -96,7 +96,7 @@ namespace MusicPlayer.Controllers
                  }
 
                  return View();*/
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
         }
     }
