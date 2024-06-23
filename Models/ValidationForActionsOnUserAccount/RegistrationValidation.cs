@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MusicPlayer.Models.ViewModels
+namespace MusicPlayer.Models.ValidationForActionsOnUserAccount
 {
-    public class ArtistViewModel
+    public class RegistrationValidation
     {
     }
 }

@@ -9,6 +9,7 @@ using MusicPlayer.Models;
 using MusicPlayer.Migrations;
 
 using Microsoft.Data.SqlClient;
+using MusicPlayer.Models.DBRepository.Queries;
 
 namespace MusicPlayer.Controllers
 {
@@ -16,29 +17,43 @@ namespace MusicPlayer.Controllers
 
     {
         private readonly ApplicationDbContext _context;
+        private SongsQueries s_queries;
+        private UserQueries u_queries;
+        private FavouritesQueiries f_queries;
+        private ArtistQueries a_queries;
+        private AlbumQueries alb_queries;
         public FavouritsController(ApplicationDbContext context)
         {
             _context = context;
+            s_queries = new SongsQueries(_context);
+            u_queries = new UserQueries(_context);
+            f_queries = new FavouritesQueiries(_context);
+            a_queries = new ArtistQueries(_context);
+            alb_queries = new AlbumQueries(_context);
         }
         [HttpGet]
         public IActionResult Index()
         {
-            
-            
-            var user = _context.Users.FirstOrDefault(x => x.UserID == Globals.USER_ID);
+
+
+            var user = u_queries.GetUserById(Globals.USER_ID);
+              
             ProfileViewModel profile = new ProfileViewModel() { userInSystemId = user.UserID, Login = user.Login};
-            var favSongs = _context.Favourites.Where(x=>x.UserID==user.UserID).ToList();
-            var songs = _context.Songs.ToList();
+            var favSongs = f_queries.GetFavouritesByUserId(user.UserID);
+           
+            var songs = s_queries.GetAllSongs();
+                
             List<FavouritesViewModel> fs_vm = new List<FavouritesViewModel>();
-               // if (favSongs.Count!=0)
-               // {
+              
                 foreach (Favourite favSong in favSongs)
                 {
                     int artistId = songs.FirstOrDefault(x => x.SongID == favSong.SongID).ArtistID;
                     int albumId = songs.FirstOrDefault(x => x.SongID == favSong.SongID).AlbumID;
 
-                    var artist = _context.Artists.FirstOrDefault(x => x.ArtistID == artistId);
-                    var album = _context.Albums.FirstOrDefault(x => x.AlbumID == albumId);
+                var artist = a_queries.GetArtistById(artistId);
+                   
+                    var album = alb_queries.GetAlbumById(albumId);
+                    
                     var favViewModel = new FavouritesViewModel()
                     {
                         SongID = songs.FirstOrDefault(x => x.SongID == favSong.SongID).SongID,
@@ -53,49 +68,17 @@ namespace MusicPlayer.Controllers
                 }
                         UserAccountViewModel viewModel = new UserAccountViewModel() { Profile = profile, FavouriteSongs = fs_vm };
                         return View(viewModel);
-                   // }
-                
-               // return View();
+                  
             }
             [HttpGet]
             public IActionResult DeleteFromFavourites(int songId)
             {
-                var selectedSong = _context.Favourites.FirstOrDefault(x => songId == x.SongID && x.UserID==Globals.USER_ID);
+            var selectedSong = f_queries.GetFavouriteSongBySongIdAndUserId(songId, Globals.USER_ID);
+            
+            f_queries.DeleteFromFavourites(selectedSong);
                 
-                _context.Favourites.Remove(selectedSong);
-                _context.SaveChanges();
 
-                /* ProfileViewModel profile = new ProfileViewModel() { userInSystemId = userInSystemId, Login = Login, FavouriteSongs = FavouriteSongs };
-                 var favSongs = _context.Favourites.ToList();
-                 var songs = _context.Songs.ToList();
-                 List<FavouritesViewModel> fs_vm = new List<FavouritesViewModel>();
-
-                 if (songs != null)
-                 {
-                     foreach (Favourite favSong in favSongs)
-                     {
-                         int artistId = songs.FirstOrDefault(x => x.SongID == favSong.SongID).ArtistID;
-                         int albumId = songs.FirstOrDefault(x => x.SongID == favSong.SongID).AlbumID;
-
-                         var artist = _context.Artists.FirstOrDefault(x => x.ArtistID == artistId);
-                         var album = _context.Albums.FirstOrDefault(x => x.AlbumID == albumId);
-                         var favViewModel = new FavouritesViewModel()
-                         {
-                             SongID = songs.FirstOrDefault(x => x.SongID == favSong.SongID).SongID,
-                             Title = songs.FirstOrDefault(x => x.SongID == favSong.SongID).Title,
-                             Artist = artist.ArtistName,
-                             Genre = songs.FirstOrDefault(x => x.SongID == favSong.SongID).Genre,
-                             Album = album.AlbumName,
-                             Duration = songs.FirstOrDefault(x => x.SongID == favSong.SongID).Duration,
-                             Location = songs.FirstOrDefault(x => x.SongID == favSong.SongID).Location,
-                         };
-                         fs_vm.Add(favViewModel);
-                     }
-                     UserAccountViewModel viewModel = new UserAccountViewModel() { Profile = profile, FavouriteSongs = fs_vm };
-                     return View(viewModel);
-                 }
-
-                 return View();*/
+              
                 return RedirectToAction("Index");
             }
         }

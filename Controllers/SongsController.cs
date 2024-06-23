@@ -12,31 +12,35 @@ using MusicPlayer.Models.ViewModels;
 using MusicPlayer.Models;
 using Microsoft.Data.SqlClient;
 using MusicPlayer.Migrations;
+using MusicPlayer.Models.DBRepository.Queries;
+using MusicPlayer.Models.DBRepository.Interfaces;
 
 namespace MusicPlayer.Controllers
 {
     public class SongsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private SongsQueries s_queries;
+        private UserQueries u_queries;
+        private FavouritesQueiries f_queries;
+        private ArtistQueries a_queries;
+        private AlbumQueries alb_queries;
         public SongsController(ApplicationDbContext context)
         {
             _context = context;
+            s_queries = new SongsQueries(_context);
+            u_queries = new UserQueries(_context);
+            f_queries = new FavouritesQueiries(_context);
+            a_queries = new ArtistQueries(_context);
+            alb_queries = new AlbumQueries(_context);
         }
         [HttpGet]
         public IActionResult Index(ProfileViewModel profile)
         {
-            
-            var songs = _context.Songs.ToList();
-            /*List<SongViewModel> list = new List<SongViewModel>;
-            int id = 1;
-            SqlDataReader reader = 
-            foreach(SongViewModel model in list)
-            {
-                Song song = new Song();
-                song = _context.Songs.FirstOrDefault(x => x.SongID == id);
-                id++;
-            }*/
 
+            var songs = s_queries.GetAllSongs();
+               // _context.Songs.ToList();
+            
             
             List<SongViewModel> s_vm = new List<SongViewModel>();
             if (songs != null)
@@ -44,8 +48,10 @@ namespace MusicPlayer.Controllers
 
                 foreach (Song song in songs)
                 {
-                    var artist = _context.Artists.FirstOrDefault(x => x.ArtistID == song.ArtistID);
-                    var album = _context.Albums.FirstOrDefault(x => x.AlbumID == song.AlbumID);
+                    var artist = a_queries.GetArtistById(song.ArtistID);
+                    
+                    var album = alb_queries.GetAlbumById(song.AlbumID);
+                    
                     var songViewModel = new SongViewModel()
                     {
                         SongID=song.SongID,
@@ -67,9 +73,12 @@ namespace MusicPlayer.Controllers
         [HttpGet]
         public IActionResult AddToFavourites(int songId)
         {
-           
-            var selectedSong = _context.Songs.FirstOrDefault(x => songId == x.SongID);
-            var selectedUser = _context.Users.FirstOrDefault(x => Globals.USER_ID== x.UserID);
+
+            var selectedSong = s_queries.GetSongById(songId);
+                
+            
+            var selectedUser = u_queries.GetUserById(Globals.USER_ID);
+             
             
             var favouriteSong = new Favourite()
             {
@@ -78,13 +87,14 @@ namespace MusicPlayer.Controllers
                 UserID = selectedUser.UserID,
                 
             };
-            
-            var listOfFavourites = _context.Favourites.Where(x=>x.UserID==Globals.USER_ID).ToList<Favourite>();
+
+            var listOfFavourites = f_queries.GetFavouritesByUserId(Globals.USER_ID);
+               
             var songInList = listOfFavourites.FirstOrDefault(x => x.SongID == favouriteSong.SongID);
             if (songInList is null)
             {
-                _context.Favourites.Add(favouriteSong);
-                _context.SaveChanges();
+                f_queries.AddToFavourites(favouriteSong);
+               
                 return RedirectToAction("Index", "Favourits");
             }
             else

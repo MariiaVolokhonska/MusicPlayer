@@ -11,16 +11,19 @@ using MusicPlayer.Models;
 using MusicPlayer.Models.Data;
 using MusicPlayer.Models.Interfaces;
 using MusicPlayer.Models.ViewModels;
+using MusicPlayer.Models.DBRepository.Queries;
 
 namespace MusicPlayer.Controllers
 {
     public class AuthorizationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserQueries queries;
 
         public AuthorizationController(ApplicationDbContext context)
         {
             _context = context;
+            queries = new UserQueries(_context);
         }
         [HttpGet]
         public IActionResult Index()
@@ -32,8 +35,9 @@ namespace MusicPlayer.Controllers
          [HttpPost]
          public IActionResult Index(UserViewModel userData)
         {
-           
-            User user = _context.Users.FirstOrDefault(x => x.Login == userData.Login);
+
+            User user = queries.GetUserByLogin(userData.Login);
+               
            
             if (user != null&& user.Password == userData.Password)
             {

@@ -9,16 +9,19 @@ using MusicPlayer.Models;
 using MusicPlayer.Models.Data;
 using MusicPlayer.Models.Interfaces;
 using MusicPlayer.Models.ViewModels;
+using MusicPlayer.Models.DBRepository.Queries;
 
 namespace MusicPlayer.Controllers
 {
     public class RegistrationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserQueries queries;
 
         public RegistrationController(ApplicationDbContext context)
         {
             _context = context;
+            queries = new UserQueries(_context);
         }
 
         [HttpGet]
@@ -37,9 +40,10 @@ namespace MusicPlayer.Controllers
                 PhoneNumber = userData.PhoneNumber,
                 Playlists = new List<Playlist>(),
             };
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return RedirectToAction("Home","Index");
+            queries.CreateUser(user);
+            // _context.Users.Add(user);
+            // _context.SaveChanges();
+            return RedirectToAction("Index", "Authorization");
         }
         /*
 
